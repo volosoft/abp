@@ -4,5 +4,8 @@
   "private": true,
   "dependencies": {
     "@abp/aspnetcore.mvc.ui.theme.basic": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.5"
   }
 }
