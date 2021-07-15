@@ -17,11 +17,23 @@ namespace Volo.Abp.SettingManagement.EntityFrameworkCore
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(SettingManagementDbContext), optionsBuilder);
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigureSettingManagement();
+
+            AbpDbContextEvent.OnModelCreating(nameof(SettingManagementDbContext), builder);
+
         }
+
     }
 }

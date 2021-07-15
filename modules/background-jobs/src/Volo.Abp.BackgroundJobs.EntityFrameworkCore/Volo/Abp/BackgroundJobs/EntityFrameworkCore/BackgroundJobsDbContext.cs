@@ -17,11 +17,22 @@ namespace Volo.Abp.BackgroundJobs.EntityFrameworkCore
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(BackgroundJobsDbContext), optionsBuilder);
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigureBackgroundJobs();
+
+            AbpDbContextEvent.OnModelCreating(nameof(BackgroundJobsDbContext), builder);
         }
+
     }
 }

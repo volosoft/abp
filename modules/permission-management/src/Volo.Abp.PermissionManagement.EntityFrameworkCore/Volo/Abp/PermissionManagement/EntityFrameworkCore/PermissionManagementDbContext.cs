@@ -15,11 +15,22 @@ namespace Volo.Abp.PermissionManagement.EntityFrameworkCore
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(PermissionManagementDbContext), optionsBuilder);
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigurePermissionManagement();
+
+            AbpDbContextEvent.OnModelCreating(nameof(PermissionManagementDbContext), builder);
         }
+
     }
 }

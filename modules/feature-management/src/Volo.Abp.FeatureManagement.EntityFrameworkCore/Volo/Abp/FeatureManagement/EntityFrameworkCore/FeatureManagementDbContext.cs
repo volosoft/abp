@@ -17,11 +17,22 @@ namespace Volo.Abp.FeatureManagement.EntityFrameworkCore
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(FeatureManagementDbContext), optionsBuilder);
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigureFeatureManagement();
+
+            AbpDbContextEvent.OnModelCreating(nameof(FeatureManagementDbContext), builder);
         }
+
+
     }
 }

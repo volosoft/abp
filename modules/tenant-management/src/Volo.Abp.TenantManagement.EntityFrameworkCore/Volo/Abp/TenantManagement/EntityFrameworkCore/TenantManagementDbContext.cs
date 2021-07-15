@@ -18,11 +18,23 @@ namespace Volo.Abp.TenantManagement.EntityFrameworkCore
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(TenantManagementDbContext), optionsBuilder);
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigureTenantManagement();
+
+            AbpDbContextEvent.OnModelCreating(nameof(TenantManagementDbContext), builder);
+
         }
+
     }
 }

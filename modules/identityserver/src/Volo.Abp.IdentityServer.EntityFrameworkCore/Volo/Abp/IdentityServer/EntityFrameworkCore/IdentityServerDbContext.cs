@@ -83,11 +83,23 @@ namespace Volo.Abp.IdentityServer.EntityFrameworkCore
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            AbpDbContextEvent.OnConfiguring(nameof(IdentityServerDbContext), optionsBuilder);
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ConfigureIdentityServer();
+
+            AbpDbContextEvent.OnModelCreating(nameof(IdentityServerDbContext), builder);
+
         }
+
     }
 }
